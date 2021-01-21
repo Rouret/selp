@@ -76,6 +76,7 @@ public class Lexer {
 					return this.number();
 				}
 				if (this.isLetter(this.currentChar())) {
+
 					if (this.currentChar() == 'i') {
 						next();
 						if(this.match('f')){

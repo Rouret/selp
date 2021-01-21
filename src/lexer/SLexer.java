@@ -11,7 +11,6 @@ public class SLexer {
     }
     public static Token getToken() throws IOException {
         Token t = lexer.getToken();
-        System.out.println("t = " + t);
         return t;
     }
 }

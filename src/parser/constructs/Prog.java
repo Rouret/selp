@@ -33,6 +33,7 @@ public class Prog extends AST {
                 token = getToken();
                 FunDef function = FunDef.parse(token);
                 list.add(function);
+                token = getToken();
                 Body body = Body.parse(token,new ArrayList<>());
 
                 return new Prog(list,body);
@@ -49,6 +50,10 @@ public class Prog extends AST {
         State<Integer> stateVariables=new State<Integer>();
         State<FunDef> stateFunDef=new State<FunDef>();
 
+        for (FunDef funDef: this.listFunDef
+             ) {
+            stateFunDef.bind(funDef.getHead().getFunctionId().getValue(),funDef);
+        }
 
         return this.body.eval(stateVariables,stateFunDef);
     }

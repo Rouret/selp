@@ -34,14 +34,14 @@ public class FunDef extends AST {
 
     public static FunDef parse(Token token) throws IOException, SyntaxError {
         //funcDef  : '(' 'defun' '(' functionId variableId* ')' body ')'
-            Head head= Head.parse(token);
+        Head head= Head.parse(token);
 
-            Body body= Body. parse(getToken(),new ArrayList<>());
+        Body body= Body. parse(getToken(),new ArrayList<>());
 
-            token=getToken();
-            if(!(token instanceof RPAR)) throw new SyntaxError("");
+        token=getToken();
+        if(!(token instanceof RPAR)) throw new SyntaxError("");
 
-            return new FunDef(head,body);
+        return new FunDef(head,body);
 
     }
     @Override

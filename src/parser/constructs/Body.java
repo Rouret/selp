@@ -26,8 +26,7 @@ public class Body extends AST {
 
     public static Body parse(Token token, List<VarDef> defs) throws IOException, SyntaxError {
         if (token instanceof LPAR) {
-            token= getToken();
-            System.out.printf("token=", token);
+            token = getToken();
             if (token instanceof DEFVAR) {
                 //NOM DE LA VARIABLE
                 VarDef def = VarDef.parse(getToken());
@@ -35,7 +34,6 @@ public class Body extends AST {
                     defs.add(def);
                     def = VarDef.parse(getToken());
                 }
-
                 // loop on the rest of the body with the accumulated definitions
                 //VALEUR DE LA VARIABLE
                 return parse(getToken(), defs);

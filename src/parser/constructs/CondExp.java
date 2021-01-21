@@ -4,7 +4,7 @@ import lexer.tokens.IF;
 
 class ConDex extends Exp {
 
-    private IF operator;
+    private final IF operator;
     private Exp operand1;
     private Exp operand2;
     private Exp operand3;

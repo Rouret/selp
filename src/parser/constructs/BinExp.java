@@ -11,27 +11,13 @@ public class BinExp extends Exp {
     public BinExp(OP operator) {
 
         switch (operator.getValue().toLowerCase()){
-            case "+" -> {
-                this.operator = OPSYM.PLUS;
-            }
-            case "-" -> {
-                this.operator = OPSYM.MINUS;
-            }
-            case "*" -> {
-                this.operator = OPSYM.TIMES;
-            }
-            case "/" -> {
-                this.operator = OPSYM.DIVIDER;
-            }
-            case "==" -> {
-                this.operator = OPSYM.EQUALS;
-            }
-            case "<" -> {
-                this.operator = OPSYM.LOWER_THAN;
-            }
-            case ">" -> {
-                this.operator = OPSYM.UPPER_THAN;
-            }
+            case "+" -> this.operator = OPSYM.PLUS;
+            case "-" -> this.operator = OPSYM.MINUS;
+            case "*" -> this.operator = OPSYM.TIMES;
+            case "/" -> this.operator = OPSYM.DIVIDER;
+            case "==" -> this.operator = OPSYM.EQUALS;
+            case "<" -> this.operator = OPSYM.LOWER_THAN;
+            case ">" -> this.operator = OPSYM.UPPER_THAN;
         }
     }
 

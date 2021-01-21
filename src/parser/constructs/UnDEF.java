@@ -13,8 +13,8 @@ public class UnDEF extends Exp {
 
 
     @Override
-    public int eval(State<Integer> stateVariables) {
-        return -1 * this.exp.eval(stateVariables);
+    public int eval(State<Integer> stateVariables, State<FunDef> stateFunDef) {
+        return -1 * this.exp.eval(stateVariables, stateFunDef);
     }
 
     @Override

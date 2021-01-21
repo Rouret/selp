@@ -10,6 +10,8 @@ public class SLexer {
         SLexer.lexer=new Lexer(in);
     }
     public static Token getToken() throws IOException {
-        return lexer.getToken();
+        Token t = lexer.getToken();
+        System.out.println("t = " + t);
+        return t;
     }
 }

@@ -38,11 +38,11 @@ class ConDex extends Exp {
     }
 
     @Override
-    public int eval(State<Integer> stateVariables) {
-        if(operand1.eval(stateVariables)!= 0){
-            return this.operand2.eval(stateVariables);
+    public int eval(State<Integer> stateVariables, State<FunDef> stateFunDef) {
+        if(operand1.eval(stateVariables, stateFunDef)!= 0){
+            return this.operand2.eval(stateVariables, stateFunDef);
         }else{
-            return this.operand3.eval(stateVariables);
+            return this.operand3.eval(stateVariables, stateFunDef);
         }
     }
 }

@@ -8,6 +8,10 @@ import parser.State;
 import parser.SyntaxError;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static lexer.SLexer.getToken;
 
 public abstract class Exp extends AST {
     public static Exp parse(Token token) throws IOException, SyntaxError {
@@ -67,11 +71,35 @@ public abstract class Exp extends AST {
 
             return conDex;
         }
+        else if(tokenOP instanceof IDENTIFIER){
+            IDENTIFIER identifier = (IDENTIFIER) tokenOP;
+            Token nextToken = getToken();
+
+            List<Exp> args= new ArrayList<Exp>();
+            if(nextToken instanceof RPAR) return new Call(identifier.getValue(),args);
+
+            AST ast=parse(nextToken);
+
+            while (ast instanceof  Exp){
+                args.add((Exp) ast);
+
+                nextToken = getToken();
+
+                if(nextToken instanceof RPAR) break;
+
+                ast = parse(nextToken);
+
+            }
+
+            if(nextToken instanceof RPAR) return new Call(identifier.getValue(),args);
+
+            throw new SyntaxError("missing ')'");
+        }
         else {
             throw new SyntaxError("Missing an operator");
         }
     }
 
-    public abstract int eval(State<Integer> stateVariables);
+    public abstract int eval(State<Integer> stateVariables, State<FunDef> stateFunDef);
 }
 

@@ -1,5 +1,6 @@
 package parser.constructs;
 
+import lexer.SLexer;
 import lexer.Token;
 import lexer.tokens.DEFVAR;
 import lexer.tokens.LPAR;
@@ -7,10 +8,11 @@ import parser.AST;
 import parser.State;
 import parser.SyntaxError;
 
-import static lexer.SLexer.getToken;
 
 import java.io.IOException;
 import java.util.List;
+
+import static lexer.SLexer.getToken;
 
 public class Body extends AST {
 
@@ -24,16 +26,21 @@ public class Body extends AST {
 
     public static Body parse(Token token, List<VarDef> defs) throws IOException, SyntaxError {
         if (token instanceof LPAR) {
-            Token token2 = getToken();
-            if (token2 instanceof DEFVAR) {
+            token= getToken();
+            System.out.printf("token=", token);
+            if (token instanceof DEFVAR) {
                 //NOM DE LA VARIABLE
                 VarDef def = VarDef.parse(getToken());
-                defs.add(def);
+                while(def instanceof VarDef){
+                    defs.add(def);
+                    def = VarDef.parse(getToken());
+                }
+
                 // loop on the rest of the body with the accumulated definitions
                 //VALEUR DE LA VARIABLE
                 return parse(getToken(), defs);
             } else { // there is a compound expression after the definitions*
-                Exp exp = Exp.parseCompoundTail(token2);
+                Exp exp = Exp.parseCompoundTail(token);
                 return new Body(defs, exp);
             }
         } else {
@@ -46,14 +53,14 @@ public class Body extends AST {
         Exp exp =  Exp.parseSimple(token);
         return new Body(defs, exp);
     }
-    public int eval(State<Integer> stateVariable){
+    public int eval(State<Integer> stateVariables,State<FunDef> stateFunDef){
         for (VarDef varDef: this.list) {
-            varDef.eval(stateVariable);
+            varDef.eval(stateVariables,stateFunDef);
         }
-        return this.exp.eval(stateVariable);
+        return this.exp.eval(stateVariables,stateFunDef);
     }
     @Override
     public String toString() {
-        return null;
+        return "Body";
     }
 }

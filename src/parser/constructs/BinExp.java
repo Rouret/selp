@@ -40,9 +40,9 @@ public class BinExp extends Exp {
     }
 
     @Override
-    public int eval(State<Integer> stateVariables) {
-        int resultOperand1 = operand1.eval(stateVariables);
-        int resultOperand2 = operand2.eval(stateVariables);
+    public int eval(State<Integer> stateVariables, State<FunDef> stateFunDef) {
+        int resultOperand1 = operand1.eval(stateVariables, stateFunDef);
+        int resultOperand2 = operand2.eval(stateVariables, stateFunDef);
 
         switch (this.operator){
             case PLUS -> {

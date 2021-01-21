@@ -16,7 +16,7 @@ public class IntLit extends Exp {
     }
 
     @Override
-    public int eval(State<Integer> stateVariables) {
+    public int eval(State<Integer> stateVariables, State<FunDef> stateFunDef) {
         return value;
     }
 }

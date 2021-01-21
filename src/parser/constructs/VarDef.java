@@ -28,8 +28,8 @@ public class VarDef extends AST {
         return new VarDef(var.getVarName(), exp);
     }
 
-    public void eval(State<Integer> stateVariable){
-        stateVariable.bind(this.varName,this.exp.eval(stateVariable));
+    public void eval(State<Integer> stateVariables, State<FunDef> stateFunDef){
+        stateVariables.bind(this.varName,this.exp.eval(stateVariables, stateFunDef));
     }
     @Override
     public String toString() {

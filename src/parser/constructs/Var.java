@@ -15,7 +15,7 @@ public class Var extends Exp {
     }
 
     @Override
-    public int eval(State<Integer> stateVariables) {
+    public int eval(State<Integer> stateVariables, State<FunDef> stateFunDef) {
         return stateVariables.lookup(this.varName);
     }
 

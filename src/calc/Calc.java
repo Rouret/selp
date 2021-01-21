@@ -1,12 +1,15 @@
 package calc;
 
 import lexer.SLexer;
+import lexer.Token;
 import lexer.tokens.EOF;
 import parser.AST;
 import parser.State;
 import parser.SyntaxError;
 import parser.constructs.Body;
 import parser.constructs.Exp;
+import parser.constructs.FunDef;
+import parser.constructs.Prog;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,14 +34,19 @@ public class Calc {
     }
     public static int interpret(InputStream in) throws IOException, SyntaxError {
         SLexer.init(in);
-        Body body = Body.parse(SLexer.getToken(), new ArrayList<>());
-        if(!(SLexer.getToken() instanceof EOF)){
 
+
+
+        Prog prog = Prog.parse(SLexer.getToken());
+        if(!(SLexer.getToken() instanceof EOF)){
             throw new SyntaxError("EOF not detected");
         }
-        State<Integer> state=new State<Integer>();
-        Integer result=body.eval(state);
+
+
+        Integer result=prog.eval();
         System.out.println("eval = " + result);
+
         return result;
+        //return 0;
     }
 }

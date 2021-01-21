@@ -1,5 +1,7 @@
 package parser.constructs;
 
+import parser.State;
+
 public class IntLit extends Exp {
 
     private final int value;
@@ -14,7 +16,7 @@ public class IntLit extends Exp {
     }
 
     @Override
-    public int eval() {
+    public int eval(State<Integer> stateVariables) {
         return value;
     }
 }

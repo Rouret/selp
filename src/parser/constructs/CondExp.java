@@ -1,6 +1,7 @@
 package parser.constructs;
 
 import lexer.tokens.IF;
+import parser.State;
 
 class ConDex extends Exp {
 
@@ -37,11 +38,11 @@ class ConDex extends Exp {
     }
 
     @Override
-    public int eval() {
-        if(operand1.eval()!= 0){
-            return this.operand2.eval();
+    public int eval(State<Integer> stateVariables) {
+        if(operand1.eval(stateVariables)!= 0){
+            return this.operand2.eval(stateVariables);
         }else{
-            return this.operand3.eval();
+            return this.operand3.eval(stateVariables);
         }
     }
 }

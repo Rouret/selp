@@ -81,8 +81,9 @@ public class Lexer {
 						if(this.match('f')){
 							if(this.currentChar()==' '){
 								return new IF();
+							}else{
+								this.identifier();
 							}
-							throw new LexicalError(this.currentChar());
 						}else{
 							return this.getToken();
 						}

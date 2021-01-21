@@ -9,6 +9,10 @@ public class IDENTIFIER implements Token {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     public String toString() {
         return ("IDENTIFIER("+this.value+")");
     }

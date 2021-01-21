@@ -1,6 +1,7 @@
 package parser.constructs;
 
 import lexer.tokens.OP;
+import parser.State;
 
 public class BinExp extends Exp {
 
@@ -39,9 +40,9 @@ public class BinExp extends Exp {
     }
 
     @Override
-    public int eval() {
-        int resultOperand1 = operand1.eval();
-        int resultOperand2 = operand2.eval();
+    public int eval(State<Integer> stateVariables) {
+        int resultOperand1 = operand1.eval(stateVariables);
+        int resultOperand2 = operand2.eval(stateVariables);
 
         switch (this.operator){
             case PLUS -> {

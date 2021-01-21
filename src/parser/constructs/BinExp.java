@@ -4,13 +4,35 @@ import lexer.tokens.OP;
 
 public class BinExp extends Exp {
 
-    private OP operator;
+    private OPSYM operator;
     private Exp operand1;
     private Exp operand2;
 
     public BinExp(OP operator) {
-        this.operator = operator;
 
+        switch (operator.getValue().toLowerCase()){
+            case "+" -> {
+                this.operator = OPSYM.PLUS;
+            }
+            case "-" -> {
+                this.operator = OPSYM.MINUS;
+            }
+            case "*" -> {
+                this.operator = OPSYM.TIMES;
+            }
+            case "/" -> {
+                this.operator = OPSYM.DIVIDER;
+            }
+            case "==" -> {
+                this.operator = OPSYM.EQUALS;
+            }
+            case "<" -> {
+                this.operator = OPSYM.LOWER_THAN;
+            }
+            case ">" -> {
+                this.operator = OPSYM.UPPER_THAN;
+            }
+        }
     }
 
     @Override
@@ -35,22 +57,33 @@ public class BinExp extends Exp {
         int resultOperand1 = operand1.eval();
         int resultOperand2 = operand2.eval();
 
-        if ("+".equals(this.operator.getValue())) {
-            return resultOperand1 + resultOperand2;
-        } else if ("-".equals(this.operator.getValue())) {
-            return resultOperand1 - resultOperand2;
-        } else if ("*".equals(this.operator.getValue())) {
-            return resultOperand1 * resultOperand2;
-        } else if ("/".equals(this.operator.getValue())) {
-            return resultOperand1 / resultOperand2;
-        }else if ("==".equals(this.operator.getValue())) {
-            return resultOperand1 == resultOperand2 ? 1 : 0;
+        switch (this.operator){
+            case PLUS -> {
+                return resultOperand1 + resultOperand2;
+            }
+            case MINUS -> {
+                return resultOperand1 - resultOperand2;
+            }
+            case DIVIDER -> {
+                return resultOperand1 / resultOperand2;
+            }
+            case TIMES -> {
+                return resultOperand1 * resultOperand2;
+            }
+            case EQUALS -> {
+                return resultOperand1 == resultOperand2 ? 1 : 0;
+            }
+            case LOWER_THAN -> {
+                return resultOperand1 < resultOperand2 ? 1 : 0;
+            }
+            case UPPER_THAN -> {
+                return resultOperand1 > resultOperand2 ? 1 : 0;
+            }
         }
         return 0;
-
     }
 
-    public OP getOperator() {
+    public OPSYM getOperator() {
         return operator;
     }
 

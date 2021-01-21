@@ -1,4 +1,4 @@
 package parser.constructs;
 
-public class EmptyVarDefStar {
+public class EmptyVarDefStar extends VarDefStar {
 }

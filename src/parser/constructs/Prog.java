@@ -26,16 +26,24 @@ public class Prog extends AST {
     }
 
     public static Prog parse (Token token) throws IOException, SyntaxError {
-        List<FunDef> list = new ArrayList<>();
 
-        FunDef function = FunDef.parse(token);
-        list.add(function);
+        List<FunDef> funDefList = new ArrayList<>();
 
-        token = getToken();
+        AST ast = null;
+        do {
+            if (!(token instanceof LPAR)) break;;
+            Token temp_token = getToken();
+            if (!(temp_token instanceof DEFUN)) break;
+
+            token = getToken();
+            ast = FunDef.parse(token);
+            funDefList.add((FunDef) ast);
+            //PAS DE TOKEN
+        }while (ast instanceof FunDef);
 
         Body body = Body.parse(token,new ArrayList<>());
 
-        return new Prog(list,body);
+        return new Prog(funDefList, body);
 
     }
 

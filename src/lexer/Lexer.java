@@ -76,27 +76,7 @@ public class Lexer {
 					return this.number();
 				}
 				if (this.isLetter(this.currentChar())) {
-
-					if (this.currentChar() == 'i') {
-						next();
-						if(this.match('f')){
-							if(this.currentChar()==' '){
-								return new IF();
-							}else{
-								this.identifier();
-							}
-						}else{
-							return this.getToken();
-						}
-						//return this.match('f') ? new IF() : this.getToken();
-					}
-					if (this.currentChar() == 'd') {
-						next();
-						if (this.match('e') && this.match('f') && this.match('u') && this.match('n')) {
-							return new DEFUN();
-						}
-					}
-					return this.identifier();
+					return this.identifierOrIf();
 				}
 				throw new LexicalError(i);
 			}
@@ -123,13 +103,19 @@ public class Lexer {
 	/**
 	 * @return IDENTIFIER
 	 */
-	private Token identifier() throws IOException {
+	private Token identifierOrIf() throws IOException {
 		while (this.currentChar()!=' ' && (this.isLetter(this.currentChar()) || this.isDigit(this.currentChar()))){
 			this.buffer.add(this.currentChar());
 			this.next();
 		}
 		String returnValue=this.buffer.getBuffer();
 		this.buffer.reset();
+		if(returnValue.equals("if")){
+			return new IF();
+		}else if (returnValue.equals("defun")){
+			return new DEFUN();
+		}
+
 		return new IDENTIFIER(returnValue);
 	}
 

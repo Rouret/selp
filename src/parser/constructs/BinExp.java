@@ -70,15 +70,9 @@ public class BinExp extends Exp {
         return 0;
     }
 
-    public OPSYM getOperator() {
-        return operator;
-    }
 
     public Exp getOperand1() {
         return operand1;
     }
 
-    public Exp getOperand2() {
-        return operand2;
-    }
 }

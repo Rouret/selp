@@ -14,8 +14,8 @@ import java.util.List;
 
 public class Body extends AST {
 
-    private List<VarDef> list;
-    private Exp exp;
+    private final List<VarDef> list;
+    private final Exp exp;
 
     public Body(List<VarDef> list, Exp exp) {
         this.list = list;

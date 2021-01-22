@@ -3,12 +3,11 @@ package parser;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 // a state can be seen as a function of type Identifier -> Value
 public class State<Value> {
     // the function is implemented as a map
-    private Map<String, Value> map = new HashMap<>();
+    private final Map<String, Value> map = new HashMap<>();
 
     // look up the value of an identifier
     // throws an (unchecked) exception if the identifier does not exist

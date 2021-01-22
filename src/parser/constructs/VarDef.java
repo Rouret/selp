@@ -12,8 +12,8 @@ import java.io.IOException;
 import static lexer.SLexer.getToken;
 public class VarDef extends AST {
 
-    private String varName;
-    private Exp exp;
+    private final String varName;
+    private final Exp exp;
 
     public VarDef(String varName, Exp exp) {
         this.varName = varName;

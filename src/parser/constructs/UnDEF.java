@@ -5,7 +5,7 @@ import parser.State;
 
 public class UnDEF extends Exp {
 
-    private Exp exp;
+    private final Exp exp;
 
     public UnDEF(Exp value) {
         this.exp = value;

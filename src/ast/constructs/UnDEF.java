@@ -5,10 +5,12 @@ import ast.State;
 
 public class UnDEF extends Exp {
 
+    private OPSYM op;
     private final Exp exp;
 
-    public UnDEF(Exp value) {
+    public UnDEF(OPSYM op,Exp value) {
         this.exp = value;
+        this.op= op;
     }
 
 
@@ -19,7 +21,7 @@ public class UnDEF extends Exp {
 
     @Override
     public String gen() {
-        return "( -"+this.exp.gen()+")";
+        return "(" + this.op.toString() + "(" + this.exp.gen()+ ")" + ")";
     }
 
     @Override

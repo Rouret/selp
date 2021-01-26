@@ -9,19 +9,11 @@ public class BinExp extends Exp {
     private Exp operand1;
     private Exp operand2;
 
-    public BinExp(String operator) {
-        switch (operator){
-            case "+" -> this.operator = OPSYM.PLUS;
-            case "-" -> this.operator = OPSYM.MINUS;
-            case "*" -> this.operator = OPSYM.TIMES;
-            case "/" -> this.operator = OPSYM.DIVIDER;
-            case "==" -> this.operator = OPSYM.EQUALS;
-            case "<" -> this.operator = OPSYM.LOWER_THAN;
-            case ">" -> this.operator = OPSYM.UPPER_THAN;
-        }
+    public BinExp(OPSYM operator) {
+        this.operator=operator;
     }
 
-    public BinExp(String operator, Exp operand1, Exp operand2) {
+    public BinExp(OPSYM operator, Exp operand1, Exp operand2) {
         this(operator);
         this.operand1 = operand1;
         this.operand2 = operand2;
@@ -41,13 +33,6 @@ public class BinExp extends Exp {
                 ')';
     }
 
-    public void setOperand1(Exp operand1) {
-        this.operand1 = operand1;
-    }
-
-    public void setOperand2(Exp operand2) {
-        this.operand2 = operand2;
-    }
 
     @Override
     public int eval(State<Integer> stateVariables) {
@@ -78,11 +63,6 @@ public class BinExp extends Exp {
             }
         }
         return 0;
-    }
-
-
-    public Exp getOperand1() {
-        return operand1;
     }
 
 }

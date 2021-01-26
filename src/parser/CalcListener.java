@@ -58,29 +58,17 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitVarDef(CalcParser.VarDefContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code IntLit}
+	 * Enter a parse tree produced by the {@code TernaryExp}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntLit(CalcParser.IntLitContext ctx);
+	void enterTernaryExp(CalcParser.TernaryExpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code IntLit}
+	 * Exit a parse tree produced by the {@code TernaryExp}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntLit(CalcParser.IntLitContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Boolean}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBoolean(CalcParser.BooleanContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Boolean}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBoolean(CalcParser.BooleanContext ctx);
+	void exitTernaryExp(CalcParser.TernaryExpContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -94,17 +82,17 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitVar(CalcParser.VarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code UnExp}
+	 * Enter a parse tree produced by the {@code UnDEF}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnExp(CalcParser.UnExpContext ctx);
+	void enterUnDEF(CalcParser.UnDEFContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code UnExp}
+	 * Exit a parse tree produced by the {@code UnDEF}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnExp(CalcParser.UnExpContext ctx);
+	void exitUnDEF(CalcParser.UnDEFContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code BinExp}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -118,39 +106,29 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitBinExp(CalcParser.BinExpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code CondExp}
+	 * Enter a parse tree produced by the {@code IntLit}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterCondExp(CalcParser.CondExpContext ctx);
+	void enterIntLit(CalcParser.IntLitContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code CondExp}
+	 * Exit a parse tree produced by the {@code IntLit}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitCondExp(CalcParser.CondExpContext ctx);
+	void exitIntLit(CalcParser.IntLitContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code FunCall}
+	 * Enter a parse tree produced by the {@code BoolLit}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunCall(CalcParser.FunCallContext ctx);
+	void enterBoolLit(CalcParser.BoolLitContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code FunCall}
+	 * Exit a parse tree produced by the {@code BoolLit}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunCall(CalcParser.FunCallContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#tail}.
-	 * @param ctx the parse tree
-	 */
-	void enterTail(CalcParser.TailContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#tail}.
-	 * @param ctx the parse tree
-	 */
-	void exitTail(CalcParser.TailContext ctx);
+	void exitBoolLit(CalcParser.BoolLitContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CalcParser#variableId}.
 	 * @param ctx the parse tree

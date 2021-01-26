@@ -12,17 +12,17 @@ body     : varDef* expression
 varDef   : '(' '=' variableId expression ')'
          ;
 expression : LITERAL                                       # IntLit
-           | BOOLEAN                                       #Boolean
+           | BOOLEAN                                       # BoolLit
            | variableId                                    # Var
-           | '(' '-' expression tail                       # UnExp
-           | '(' OP expression expression ')'              # BinExp
-           | '(' 'if' expression expression expression ')' # CondExp
-           | '(' functionId expression* ')'                # FunCall
+           | (MINUS | NOT) expression                      # UnDEF
+           | expression OpMult expression                  # BinExp
+           | expression (PLUS | MINUS) expression          # BinExp
+           | expression OpRelational  expression           # BinExp
+           | expression OpEquality  expression             # BinExp
+           | expression AND  expression                    # BinExp
+           | expression OR  expression                     # BinExp
+           | <assoc = right> expression '?' expression ':' expression #TernaryExp
            ;
-
-tail : ')'
-     |  expression ')'
-     ;
 
 variableId : IDENTIFIER
            ;
@@ -30,8 +30,6 @@ functionId : IDENTIFIER
            ;
 
 
-OP       : '+' | '-' | '*' | '/' | '==' | '<' | '!'
-         ;
 IDENTIFIER : ('a'..'z')('a'..'z' | '0'..'9')*
          ;
 LITERAL  : '0' | ('1'..'9')('0'..'9')* ;
@@ -42,3 +40,12 @@ WS       : [ \t\n\r]+ -> channel(HIDDEN)
          ;
 LINE_COMMENT : '//' ~'\n'* '\n' -> channel(HIDDEN)
          ;
+MINUS      : '-' ;
+NOT        : '!' ;
+PLUS : '+';
+
+OpMult : '*' | '/';
+OpRelational : '<' | '>' | '<=' | '>=';
+OpEquality : '==' | '!=';
+AND : '&&';
+OR : '||';

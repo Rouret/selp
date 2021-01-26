@@ -12,30 +12,32 @@ public class ASTVisitor extends CalcBaseVisitor<AST> {
     }
 
     @Override
-    public AST visitUnExp(CalcParser.UnExpContext ctx) {
-        System.out.println(ctx.expression().getChildCount());
+    public AST visitUnDEF(CalcParser.UnDEFContext ctx) {
+        OPSYM operator = OPSYM.parseOP(ctx.getChild(0).getText());
         Exp exp1=(Exp)visit(ctx.expression());
-        CalcParser.ExpressionContext exp2= ctx.tail().expression();
-        if(exp2 == null){
-            return new UnDEF(exp1);
-        }
-        return new BinExp("-", exp1, (Exp)visit(exp2));
+        //CalcParser.ExpressionContext exp2= ctx.tail().expression();
+        return new UnDEF(operator,exp1);
     }
 
     @Override
     public AST visitBinExp(CalcParser.BinExpContext ctx) {
-        String op =ctx.OP().toString();
+        OPSYM operator = OPSYM.parseOP(ctx.getChild(1).getText());
         Exp exp1 = (Exp)visit(ctx.expression().get(0));
         Exp exp2 = (Exp)visit(ctx.expression().get(1));
-        return new BinExp(op, exp1, exp2);
+        return new BinExp(operator, exp1, exp2);
     }
 
     @Override
-    public AST visitCondExp(CalcParser.CondExpContext ctx) {
-        Exp exp1 = (Exp)visit(ctx.expression().get(0));
-        Exp exp2 = (Exp)visit(ctx.expression().get(1));
-        Exp exp3 = (Exp)visit(ctx.expression().get(2));
-        return new CondExp(exp1, exp2, exp3);
+    public AST visitBoolLit(CalcParser.BoolLitContext ctx) {
+        boolean bool=Boolean.parseBoolean(ctx.getChild(0).getText());
+        return new BoolLit(bool);
     }
 
+    @Override
+    public AST visitTernaryExp(CalcParser.TernaryExpContext ctx) {
+        Exp toTest = (Exp)visit(ctx.expression().get(0));
+        Exp ExpIsTrue = (Exp)visit(ctx.expression().get(1));
+        Exp ExpIsFalse = (Exp)visit(ctx.expression().get(2));
+        return new CondExp(toTest,ExpIsTrue,ExpIsFalse);
+    }
 }

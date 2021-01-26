@@ -76,25 +76,13 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntLit(CalcParser.IntLitContext ctx) { }
+	@Override public void enterTernaryExp(CalcParser.TernaryExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntLit(CalcParser.IntLitContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBoolean(CalcParser.BooleanContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBoolean(CalcParser.BooleanContext ctx) { }
+	@Override public void exitTernaryExp(CalcParser.TernaryExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -112,13 +100,13 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnExp(CalcParser.UnExpContext ctx) { }
+	@Override public void enterUnDEF(CalcParser.UnDEFContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnExp(CalcParser.UnExpContext ctx) { }
+	@Override public void exitUnDEF(CalcParser.UnDEFContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -136,37 +124,25 @@ public class CalcBaseListener implements CalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCondExp(CalcParser.CondExpContext ctx) { }
+	@Override public void enterIntLit(CalcParser.IntLitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCondExp(CalcParser.CondExpContext ctx) { }
+	@Override public void exitIntLit(CalcParser.IntLitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunCall(CalcParser.FunCallContext ctx) { }
+	@Override public void enterBoolLit(CalcParser.BoolLitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunCall(CalcParser.FunCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTail(CalcParser.TailContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTail(CalcParser.TailContext ctx) { }
+	@Override public void exitBoolLit(CalcParser.BoolLitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -41,19 +41,12 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVarDef(CalcParser.VarDefContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code IntLit}
+	 * Visit a parse tree produced by the {@code TernaryExp}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntLit(CalcParser.IntLitContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Boolean}
-	 * labeled alternative in {@link CalcParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBoolean(CalcParser.BooleanContext ctx);
+	T visitTernaryExp(CalcParser.TernaryExpContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -62,12 +55,12 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVar(CalcParser.VarContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code UnExp}
+	 * Visit a parse tree produced by the {@code UnDEF}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnExp(CalcParser.UnExpContext ctx);
+	T visitUnDEF(CalcParser.UnDEFContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BinExp}
 	 * labeled alternative in {@link CalcParser#expression}.
@@ -76,25 +69,19 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBinExp(CalcParser.BinExpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code CondExp}
+	 * Visit a parse tree produced by the {@code IntLit}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCondExp(CalcParser.CondExpContext ctx);
+	T visitIntLit(CalcParser.IntLitContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code FunCall}
+	 * Visit a parse tree produced by the {@code BoolLit}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunCall(CalcParser.FunCallContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#tail}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTail(CalcParser.TailContext ctx);
+	T visitBoolLit(CalcParser.BoolLitContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CalcParser#variableId}.
 	 * @param ctx the parse tree

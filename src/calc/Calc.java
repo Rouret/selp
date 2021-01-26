@@ -1,44 +1,94 @@
 package calc;
 
-import lexer.SLexer;
-import lexer.tokens.EOF;
-import parser.AST;
-import parser.State;
-import parser.SyntaxError;
-import parser.constructs.Body;
-import parser.constructs.Exp;
+import ast.AST;
+import ast.ASTVisitor;
+import ast.State;
+import ast.SyntaxError;
+import ast.constructs.Exp;
+import ast.constructs.Program;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import parser.*;
 
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-
 public class Calc {
+    public static boolean verbose = false;
+    public static boolean interpret = false;
 
+    /**
+     * @param args - the filename of the file to analyze,
+     *                otherwise the program is entered at the console.
+     *             - "-v" indicates verbose mode.
+     *             - "-i" indicates interpretation rather than compilation.
+     */
     public static void main(String[] args) throws IOException, SyntaxError {
-        InputStream is;
-        String filename;
+        InputStream is = null;
+        String filename = null;
 
-        switch (args.length) {
-            case 0 -> is = System.in;
-            case 1 -> {
-                filename = args[0];
-                is = new FileInputStream(filename);
+        for (String arg: args) {
+            if (arg.charAt(0) != '-') {
+                filename = arg;
+                is = new FileInputStream(arg);
+            } else switch (arg) {
+                case "-v" -> verbose = true;
+                case "-i" -> interpret = true;
+                default -> throw new IllegalArgumentException();
             }
-            default -> throw new IllegalArgumentException();
         }
-        Calc.interpret(is);
+        if (is == null) is = System.in;
+        if (interpret)
+            System.out.println("===> " + interpret(is));
+        else
+            compile(is, filename);
     }
-    public static int interpret(InputStream in) throws IOException, SyntaxError {
-        SLexer.init(in);
-        Body body = Body.parse(SLexer.getToken(), new ArrayList<>());
-        if(!(SLexer.getToken() instanceof EOF)){
 
-            throw new SyntaxError("EOF not detected");
+    public static AST analyze(InputStream is) throws IOException, SyntaxError {
+        ANTLRInputStream input = new ANTLRInputStream(is);
+        CalcLexer lexer = new ReportingCalcLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        CalcParser parser = new CalcParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(new ErrorListener());
+
+        ParseTree tree = parser.program();
+
+        if (verbose)
+            System.out.println("ANTLR Syntax Tree: " + tree.toStringTree(parser));
+        if (ErrorFlag.getFlag()) throw new SyntaxError(ErrorFlag.getMsg());
+        else {
+            ASTVisitor visitor = new ASTVisitor();
+            AST ast = visitor.visit(tree);
+            if (verbose)
+                System.out.println("AST: " + ast);
+            return ast;
         }
-        State<Integer> state=new State<Integer>();
-        Integer result=body.eval(state);
-        System.out.println("eval = " + result);
-        return result;
+    }
+    public static int interpret(InputStream is) throws IOException, SyntaxError {
+        AST ast = analyze(is);
+        return ((Exp) ast).eval(new State<Integer>());
+    }
+    public static void compile(InputStream is, String inputFile) throws IOException, SyntaxError {
+        AST ast = analyze(is);
+        System.out.println(ast);
+        String code = Program.genMain(ast);
+        if (inputFile != null)
+            write(code, inputFile);
+        else
+            System.out.println(code);
+    }
+    // write code to .c file associated to .calc file passed as argument,
+    // returning .c file relative filename
+    static String write(String code, String filename) throws IOException {
+        String CFilename = filename.replaceFirst("\\.calc\\z", ".c");
+        if (verbose) System.out.println("writing C code to " + CFilename);
+        FileWriter out = new FileWriter(CFilename);
+        out.write(code);
+        out.flush();
+        out.close();
+        return CFilename;
     }
 }

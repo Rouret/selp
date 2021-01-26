@@ -1,3 +1,0 @@
-(defun (inc x) (+ x 1))
-(defun (inc x y) (+ x y))
-(inc 1 2)

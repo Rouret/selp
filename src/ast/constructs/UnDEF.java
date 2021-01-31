@@ -10,7 +10,7 @@ public class UnDEF extends Exp {
 
     public UnDEF(OPSYM op,Exp value) {
         this.exp = value;
-        this.op= op;
+        this.op = op;
     }
 
 

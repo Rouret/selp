@@ -23,4 +23,9 @@ public class BoolLit extends Exp {
     public int eval(State<Integer> stateVariables) {
         return this.bool ? 1 : 0;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(bool);
+    }
 }

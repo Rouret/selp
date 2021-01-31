@@ -48,6 +48,13 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTernaryExp(CalcParser.TernaryExpContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ParExp}
+	 * labeled alternative in {@link CalcParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParExp(CalcParser.ParExpContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link CalcParser#expression}.
 	 * @param ctx the parse tree

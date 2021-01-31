@@ -29,6 +29,7 @@ public class ASTVisitor extends CalcBaseVisitor<AST> {
 
     @Override
     public AST visitBoolLit(CalcParser.BoolLitContext ctx) {
+        System.out.println("BoolLit VISITOR");
         boolean bool=Boolean.parseBoolean(ctx.getChild(0).getText());
         return new BoolLit(bool);
     }
@@ -39,5 +40,10 @@ public class ASTVisitor extends CalcBaseVisitor<AST> {
         Exp ExpIsTrue = (Exp)visit(ctx.expression().get(1));
         Exp ExpIsFalse = (Exp)visit(ctx.expression().get(2));
         return new CondExp(toTest,ExpIsTrue,ExpIsFalse);
+    }
+
+    @Override
+    public AST visitParExp(CalcParser.ParExpContext ctx) {
+        return new ParExp((Exp)visit(ctx.expression()));
     }
 }

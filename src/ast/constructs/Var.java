@@ -1,9 +1,7 @@
 package ast.constructs;
 
 import ast.State;
-import ast.SyntaxError;
 import typer.Type;
-
 
 public class Var extends Exp {
 
@@ -18,6 +16,11 @@ public class Var extends Exp {
     }
 
     @Override
+    public String gen() {
+        return this.varName;
+    }
+
+    @Override
     public int eval(State<Integer> stateVariables) {
         return 0;
     }
@@ -28,14 +31,7 @@ public class Var extends Exp {
     }
 
     @Override
-    public String gen() {
-        return null;
-    }
-
-    @Override
     public String toString() {
         return "VAR("+this.varName+")";
     }
-
-
 }

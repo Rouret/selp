@@ -4,6 +4,7 @@ import ast.AST;
 import ast.ASTVisitor;
 import ast.State;
 import ast.SyntaxError;
+import ast.constructs.Body;
 import ast.constructs.Exp;
 import ast.constructs.Program;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -74,7 +75,7 @@ public class Calc {
     public static void compile(InputStream is, String inputFile) throws IOException, SyntaxError {
         AST ast = analyze(is);
         System.out.println(ast);
-        String code = Program.genMain(ast);
+        String code = Body.genMain(ast);
         if (inputFile != null)
             write(code, inputFile);
         else

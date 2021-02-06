@@ -2,7 +2,7 @@ package test;
 
 import java.util.OptionalInt;
 
-public class TestBlue extends Test {
+public class TestBlue extends test.Test {
 	/**
 	 * Entry point. Executes all the tests. 
 	 * 

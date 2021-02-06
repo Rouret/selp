@@ -81,7 +81,7 @@ public class BinExp extends Exp {
                     throw new SemanticError(this.operand1.toString() + " must be a literal expression");
                 if(this.operand2.type() != Type.INT)
                     throw new SemanticError(this.operand2.toString() + " must be a literal expression");
-
+                System.out.println("ReSULT = "+this.operand2.eval(new State<Integer>()));
                 if (this.operand2.eval(new State<Integer>()) == 0){
                     throw new SemanticError("Frere divise pas par 0, grand fou");
                 }

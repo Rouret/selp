@@ -43,6 +43,7 @@ public class CondExp extends Exp {
 
     @Override
     public Type type() {
+        //true : 1 ? 0
         if(this.operand1.type() != Type.BOOL)
             throw new SemanticError(this.operand1 + " must be a boolean expression.");
         if(this.operand2.type() != this.operand3.type())

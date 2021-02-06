@@ -12,28 +12,21 @@ import java.io.IOException;
 import static lexer.SLexer.getToken;
 public class VarDef extends AST {
 
-    private final String varName;
-    private final Exp exp;
+    private Var variable;
+    private Exp exp;
 
-    public VarDef(String varName, Exp exp) {
-        this.varName = varName;
+    public VarDef(Var variable, Exp exp) {
+        this.variable = variable;
         this.exp = exp;
-    }
-
-
-
-    public void eval(State<Integer> stateVariables){
-        stateVariables.bind(this.varName,this.exp.eval(stateVariables));
     }
 
     @Override
     public String gen() {
-        return "int "+ varName+ "=" + this.exp.gen()+";";
+        return "int "+ this.variable.getVarName() + "=" + this.exp.gen()+";";
     }
 
     @Override
     public String toString() {
-        return null;
+        return "VarDef("+this.variable.getVarName()+","+this.exp+")";
     }
-
 }

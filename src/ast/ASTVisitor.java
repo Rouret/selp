@@ -4,6 +4,9 @@ import ast.constructs.*;
 import parser.CalcBaseVisitor;
 import parser.CalcParser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ASTVisitor extends CalcBaseVisitor<AST> {
     @Override
@@ -44,5 +47,31 @@ public class ASTVisitor extends CalcBaseVisitor<AST> {
     @Override
     public AST visitParExp(CalcParser.ParExpContext ctx) {
         return new ParExp((Exp)visit(ctx.expression()));
+    }
+
+    @Override
+    public AST visitVariableId(CalcParser.VariableIdContext ctx) {
+        return new Var(ctx.getText());
+    }
+
+    @Override
+    public AST visitVarDef(CalcParser.VarDefContext ctx) {
+        Var varId = (Var)visit(ctx.variableId());
+        Exp expression = (Exp)visit(ctx.expression());
+        return new VarDef(varId, expression);
+    }
+
+    @Override
+    public AST visitBody(CalcParser.BodyContext ctx) {
+
+        List<CalcParser.VarDefContext> varDefContexts = ctx.varDef();
+        List<VarDef> varDefList = new ArrayList<>();
+        //For each varDef context, visit it to add it to the varDef list
+        for (CalcParser.VarDefContext varDefContext : varDefContexts) {
+            varDefList.add((VarDef)visit(varDefContext));
+        }
+
+        Exp expr = (Exp)visit(ctx.expression());
+        return  new Body(varDefList, expr);
     }
 }

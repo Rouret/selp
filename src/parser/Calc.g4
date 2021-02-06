@@ -1,29 +1,29 @@
 grammar Calc;
 // syntactic rules
 
-program  : funcDef* body
+program  : funcDef* body EOF
          ;
 funcDef : '(' 'defun' head body ')'
          ;
 head     : '(' functionId variableId* ')'
          ;
-body     : varDef* expression
+body     : varDef* expression EOF
          ;
 varDef   : variableId '=' expression
          ;
 
-expression : LITERAL                                      # IntLit
-           | variableId                                   # Var
-           | BOOLEAN                                       # BoolLit
-           | (MINUS | NOT) expression                      # UnDEF
-           | expression OpMult expression                               # BinExp
+expression : LITERAL                                        # IntLit
+           | variableId                                     # Var
+           | BOOLEAN                                        # BoolLit
+           | (MINUS | NOT) expression                        # UnDEF
+           | expression OpMult expression                                # BinExp
            | expression (MINUS | PLUS) expression                        # BinExp
-           | expression OpRelational expression                         # BinExp
+           | expression OpRelational expression                          # BinExp
            | expression OpEquality expression                            # BinExp
-           | expression AND expression                                  # BinExp
-           | expression OR expression                                  # BinExp
-           | <assoc = right> expression '?' expression ':' expression   #TernaryExp
-           | '(' expression ')'                                         # ParExp
+           | expression AND expression                                    # BinExp
+           | expression OR expression                                     # BinExp
+           | <assoc = right> expression '?' expression ':' expression       #TernaryExp
+           | '(' expression ')'                                             # ParExp
            ;
 
 variableId : IDENTIFIER

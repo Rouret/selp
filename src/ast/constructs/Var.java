@@ -1,6 +1,9 @@
 package ast.constructs;
 
 import ast.State;
+import ast.SyntaxError;
+import typer.Type;
+
 
 public class Var extends Exp {
 
@@ -20,6 +23,11 @@ public class Var extends Exp {
     }
 
     @Override
+    public Type type() {
+        return null;
+    }
+
+    @Override
     public String gen() {
         return null;
     }
@@ -28,4 +36,6 @@ public class Var extends Exp {
     public String toString() {
         return "VAR("+this.varName+")";
     }
+
+
 }

@@ -29,7 +29,6 @@ public class ASTVisitor extends CalcBaseVisitor<AST> {
 
     @Override
     public AST visitBoolLit(CalcParser.BoolLitContext ctx) {
-        System.out.println("BoolLit VISITOR");
         boolean bool=Boolean.parseBoolean(ctx.getChild(0).getText());
         return new BoolLit(bool);
     }

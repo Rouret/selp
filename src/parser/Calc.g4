@@ -12,17 +12,17 @@ body     : varDef* expression
 varDef   : variableId '=' expression
          ;
 
-expression : LITERAL                                       # IntLit
-           | variableId                                    # Var
+expression : LITERAL                                      # IntLit
+           | variableId                                   # Var
            | BOOLEAN                                       # BoolLit
            | (MINUS | NOT) expression                      # UnDEF
            | expression OpMult expression                               # BinExp
-           | expression (MINUS | PLUS) expression                       # BinExp
+           | expression (MINUS | PLUS) expression                        # BinExp
            | expression OpRelational expression                         # BinExp
-           | expression OpEquality expression                           # BinExp
+           | expression OpEquality expression                            # BinExp
            | expression AND expression                                  # BinExp
-           | expression OR expression                                   # BinExp
-           | <assoc = right> expression '?' expression ':' expression #TernaryExp
+           | expression OR expression                                  # BinExp
+           | <assoc = right> expression '?' expression ':' expression   #TernaryExp
            | '(' expression ')'                                         # ParExp
            ;
 

@@ -1,6 +1,9 @@
 package ast.constructs;
 
 import ast.State;
+import ast.SyntaxError;
+import typer.SemanticError;
+import typer.Type;
 
 public class CondExp extends Exp {
 
@@ -36,5 +39,14 @@ public class CondExp extends Exp {
         }else{
             return this.operand3.eval(stateVariables);
         }
+    }
+
+    @Override
+    public Type type() {
+        if(this.operand1.type() != Type.BOOL)
+            throw new SemanticError(this.operand1 + " must be a boolean expression.");
+        if(this.operand2.type() != this.operand3.type())
+            throw new SemanticError("Both expressions has to be the same type.");
+        return this.operand2.type();
     }
 }

@@ -2,6 +2,10 @@ package ast.constructs;
 
 
 import ast.State;
+import ast.SyntaxError;
+import typer.SemanticError;
+import typer.Type;
+
 
 public class UnDEF extends Exp {
 
@@ -20,12 +24,30 @@ public class UnDEF extends Exp {
     }
 
     @Override
+    public Type type() {
+        switch (this.op.toString()){
+            case "-":
+                if(this.exp.type() != Type.INT)
+                    throw new SemanticError(this.exp + " must be literal expression.");
+                return Type.INT;
+            case "!":
+                if(this.exp.type() != Type.BOOL)
+                    throw new SemanticError(this.exp + " must be boolean expression.");
+                return Type.BOOL;
+            default:
+                throw new RuntimeException();
+        }
+    }
+
+    @Override
     public String gen() {
         return "(" + this.op.toString() + "(" + this.exp.gen()+ ")" + ")";
     }
 
     @Override
     public String toString() {
-        return "UnDEF("+this.exp+")";
+        return "UnDEF("+this.op+","+this.exp+")";
     }
+
+
 }

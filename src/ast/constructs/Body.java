@@ -1,15 +1,7 @@
 package ast.constructs;
 
-import lexer.Token;
-import lexer.tokens.DEFVAR;
-import lexer.tokens.LPAR;
 import ast.AST;
-import ast.State;
-import ast.SyntaxError;
 
-import static lexer.SLexer.getToken;
-
-import java.io.IOException;
 import java.util.List;
 
 public class Body extends AST {
@@ -32,4 +24,5 @@ public class Body extends AST {
     public String toString() {
         return null;
     }
+
 }

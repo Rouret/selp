@@ -2,6 +2,8 @@ package ast.constructs;
 
 import ast.AST;
 import ast.State;
+import ast.SyntaxError;
+import typer.Type;
 
 public class BoolLit extends Exp {
     private boolean bool;
@@ -25,7 +27,13 @@ public class BoolLit extends Exp {
     }
 
     @Override
+    public Type type() {
+        return Type.BOOL;
+    }
+
+    @Override
     public String toString() {
         return String.valueOf(bool);
     }
+
 }

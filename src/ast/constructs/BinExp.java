@@ -1,6 +1,9 @@
 package ast.constructs;
 
 import ast.State;
+import ast.SyntaxError;
+import typer.SemanticError;
+import typer.Type;
 
 public class BinExp extends Exp {
 
@@ -17,7 +20,9 @@ public class BinExp extends Exp {
         this(operator);
         this.operand1 = operand1;
         this.operand2 = operand2;
+        this.type();
     }
+
 
     @Override
     public String gen() {
@@ -63,6 +68,49 @@ public class BinExp extends Exp {
             }
         }
         return 0;
+    }
+
+    @Override
+    public Type type() {
+        switch (this.operator.toString()){
+            case "+" :
+            case "-" :
+            case "*" :
+            case "/" :
+                if(this.operand1.type() != Type.INT)
+                    throw new SemanticError(this.operand1.toString() + " must be a literal expression");
+                if(this.operand2.type() != Type.INT)
+                    throw new SemanticError(this.operand2.toString() + " must be a literal expression");
+
+                if (this.operand2.eval(new State<Integer>()) == 0){
+                    throw new SemanticError("Frere divise pas par 0, grand fou");
+                }
+                return Type.INT;
+            case "<" :
+            case "<=" :
+            case ">" :
+            case ">=" :
+                if(this.operand1.type() != Type.INT)
+                    throw new SemanticError(this.operand1.toString() + " must be a literal expression");
+                if(this.operand2.type() != Type.INT)
+                    throw new SemanticError(this.operand2.toString() + " must be a literal expression");
+                return Type.BOOL;
+
+            case "==" :
+            case "!=" :
+                if(this.operand1.type() != this.operand2.type())
+                    throw new SemanticError("Both expressions has to be same type");
+                return Type.BOOL;
+            case "&&" :
+            case "||" :
+                if(this.operand1.type() != Type.BOOL)
+                    throw new SemanticError(this.operand1.toString() + " must be a boolean expression");
+                if(this.operand2.type() != Type.BOOL)
+                    throw new SemanticError(this.operand2.toString() + " must be a boolean expression");
+                return Type.BOOL;
+//            case "!" : return ASTType.Boolean;
+            default: throw new RuntimeException();
+        }
     }
 
 }

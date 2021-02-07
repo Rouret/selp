@@ -1,15 +1,10 @@
 package ast.constructs;
 
-import lexer.Token;
-import lexer.tokens.IDENTIFIER;
-import lexer.tokens.RPAR;
 import ast.AST;
 import ast.State;
-import ast.SyntaxError;
+import typer.SemanticError;
+import typer.Type;
 
-import java.io.IOException;
-
-import static lexer.SLexer.getToken;
 public class VarDef extends AST {
 
     private Var variable;
@@ -28,5 +23,16 @@ public class VarDef extends AST {
     @Override
     public String toString() {
         return "VarDef("+this.variable.getVarName()+","+this.exp+")";
+    }
+
+    @Override
+    public void checkDeclarations(State<Type> vars) throws SemanticError {
+        try {
+            if(vars.lookup(this.variable.getVarName()) != null)
+                throw new SemanticError(this + " already defined.");
+        }catch (RuntimeException exception){
+            this.exp.checkDeclarations(vars);
+            vars.bind(this.variable.getVarName(), this.exp.type(vars));
+        }
     }
 }

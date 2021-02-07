@@ -3,6 +3,7 @@ package ast.constructs;
 import ast.AST;
 import ast.State;
 import ast.SyntaxError;
+import typer.SemanticError;
 import typer.Type;
 
 public class BoolLit extends Exp {
@@ -27,8 +28,13 @@ public class BoolLit extends Exp {
     }
 
     @Override
-    public Type type() {
+    public Type type(State<Type> stVar) {
         return Type.BOOL;
+    }
+
+    @Override
+    public void checkDeclarations(State<Type> vars) throws SemanticError {
+
     }
 
     @Override

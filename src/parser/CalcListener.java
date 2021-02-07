@@ -8,36 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CalcListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CalcParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void enterProgram(CalcParser.ProgramContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void exitProgram(CalcParser.ProgramContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#funcDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterFuncDef(CalcParser.FuncDefContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#funcDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitFuncDef(CalcParser.FuncDefContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#head}.
-	 * @param ctx the parse tree
-	 */
-	void enterHead(CalcParser.HeadContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#head}.
-	 * @param ctx the parse tree
-	 */
-	void exitHead(CalcParser.HeadContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CalcParser#body}.
 	 * @param ctx the parse tree
 	 */

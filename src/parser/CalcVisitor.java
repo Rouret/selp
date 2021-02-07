@@ -11,24 +11,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link CalcParser#program}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProgram(CalcParser.ProgramContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#funcDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFuncDef(CalcParser.FuncDefContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#head}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitHead(CalcParser.HeadContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CalcParser#body}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

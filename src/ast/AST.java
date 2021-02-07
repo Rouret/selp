@@ -1,5 +1,8 @@
 package ast;
 
+import typer.SemanticError;
+import typer.Type;
+
 import java.lang.reflect.Field;
 
 public abstract class AST {
@@ -35,4 +38,5 @@ public abstract class AST {
         return relativeClassName + "(" + args + ")";
 //		return "<" + relativeClassName + ">" + args + "</" + relativeClassName + ">";
     }
+    public abstract void checkDeclarations(State<Type> vars) throws SemanticError;
 }

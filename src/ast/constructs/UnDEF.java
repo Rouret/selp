@@ -2,7 +2,6 @@ package ast.constructs;
 
 
 import ast.State;
-import ast.SyntaxError;
 import typer.SemanticError;
 import typer.Type;
 
@@ -24,19 +23,24 @@ public class UnDEF extends Exp {
     }
 
     @Override
-    public Type type() {
+    public Type type(State<Type> stVar) {
         switch (this.op.toString()){
             case "-":
-                if(this.exp.type() != Type.INT)
+                if(this.exp.type(stVar) != Type.INT)
                     throw new SemanticError(this.exp + " must be literal expression.");
                 return Type.INT;
             case "!":
-                if(this.exp.type() != Type.BOOL)
+                if(this.exp.type(stVar) != Type.BOOL)
                     throw new SemanticError(this.exp + " must be boolean expression.");
                 return Type.BOOL;
             default:
                 throw new RuntimeException();
         }
+    }
+
+    @Override
+    public void checkDeclarations(State<Type> vars) throws SemanticError {
+        this.exp.checkDeclarations(vars);
     }
 
     @Override

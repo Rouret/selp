@@ -17,7 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 public class Calc {
-    public static boolean verbose = false;
+    public static boolean verbose = true;
     public static boolean interpret = false;
 
     /**
@@ -55,7 +55,7 @@ public class Calc {
         parser.removeErrorListeners();
         parser.addErrorListener(new ErrorListener());
 
-        ParseTree tree = parser.program();
+        ParseTree tree = parser.body();
 
         if (verbose)
             System.out.println("ANTLR Syntax Tree: " + tree.toStringTree(parser));
@@ -74,7 +74,6 @@ public class Calc {
     }
     public static void compile(InputStream is, String inputFile) throws IOException, SyntaxError {
         AST ast = analyze(is);
-        System.out.println(ast);
         String code = Body.genMain(ast);
         if (inputFile != null)
             write(code, inputFile);

@@ -42,12 +42,19 @@ public class CondExp extends Exp {
     }
 
     @Override
-    public Type type() {
+    public Type type(State<Type> stVar) {
         //true : 1 ? 0
-        if(this.operand1.type() != Type.BOOL)
+        if(this.operand1.type(stVar) != Type.BOOL)
             throw new SemanticError(this.operand1 + " must be a boolean expression.");
-        if(this.operand2.type() != this.operand3.type())
+        if(this.operand2.type(stVar) != this.operand3.type(stVar))
             throw new SemanticError("Both expressions has to be the same type.");
-        return this.operand2.type();
+        return this.operand2.type(stVar);
+    }
+
+    @Override
+    public void checkDeclarations(State<Type> vars) throws SemanticError {
+        this.operand1.checkDeclarations(vars);
+        this.operand2.checkDeclarations(vars);
+        this.operand3.checkDeclarations(vars);
     }
 }

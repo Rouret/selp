@@ -58,7 +58,9 @@ public class ASTVisitor extends CalcBaseVisitor<AST> {
     public AST visitVarDef(CalcParser.VarDefContext ctx) {
         Var varId = (Var)visit(ctx.variableId());
         Exp expression = (Exp)visit(ctx.expression());
-        return new VarDef(varId, expression);
+        VarDef varDef = new VarDef(varId, expression);
+        System.out.println("varDef = " + varDef);
+        return varDef;
     }
 
     @Override
@@ -72,6 +74,8 @@ public class ASTVisitor extends CalcBaseVisitor<AST> {
         }
 
         Exp expr = (Exp)visit(ctx.expression());
-        return  new Body(varDefList, expr);
+        Body body = new Body(varDefList, expr);
+        System.out.println("body = " + body);
+        return body;
     }
 }

@@ -20,7 +20,6 @@ public class BinExp extends Exp {
         this(operator);
         this.operand1 = operand1;
         this.operand2 = operand2;
-        this.type();
     }
 
 
@@ -70,47 +69,53 @@ public class BinExp extends Exp {
         return 0;
     }
 
+
     @Override
-    public Type type() {
+    public Type type(State<Type> stVar) {
         switch (this.operator.toString()){
             case "+" :
             case "-" :
             case "*" :
             case "/" :
-                if(this.operand1.type() != Type.INT)
+                if(this.operand1.type(stVar) != Type.INT)
                     throw new SemanticError(this.operand1.toString() + " must be a literal expression");
-                if(this.operand2.type() != Type.INT)
+                if(this.operand2.type(stVar) != Type.INT)
                     throw new SemanticError(this.operand2.toString() + " must be a literal expression");
-                System.out.println("ReSULT = "+this.operand2.eval(new State<Integer>()));
                 if (this.operand2.eval(new State<Integer>()) == 0){
-                    throw new SemanticError("Frere divise pas par 0, grand fou");
+                    throw new SemanticError("division by 0 not possible");
                 }
                 return Type.INT;
             case "<" :
             case "<=" :
             case ">" :
             case ">=" :
-                if(this.operand1.type() != Type.INT)
+                if(this.operand1.type(stVar) != Type.INT)
                     throw new SemanticError(this.operand1.toString() + " must be a literal expression");
-                if(this.operand2.type() != Type.INT)
+                if(this.operand2.type(stVar) != Type.INT)
                     throw new SemanticError(this.operand2.toString() + " must be a literal expression");
                 return Type.BOOL;
 
             case "==" :
             case "!=" :
-                if(this.operand1.type() != this.operand2.type())
+                if(this.operand1.type(stVar) != this.operand2.type(stVar))
                     throw new SemanticError("Both expressions has to be same type");
                 return Type.BOOL;
             case "&&" :
             case "||" :
-                if(this.operand1.type() != Type.BOOL)
+                if(this.operand1.type(stVar) != Type.BOOL)
                     throw new SemanticError(this.operand1.toString() + " must be a boolean expression");
-                if(this.operand2.type() != Type.BOOL)
+                if(this.operand2.type(stVar) != Type.BOOL)
                     throw new SemanticError(this.operand2.toString() + " must be a boolean expression");
                 return Type.BOOL;
 //            case "!" : return ASTType.Boolean;
             default: throw new RuntimeException();
         }
+    }
+
+    @Override
+    public void checkDeclarations(State<Type> vars) throws SemanticError {
+        this.operand1.checkDeclarations(vars);
+        this.operand2.checkDeclarations(vars);
     }
 
 }

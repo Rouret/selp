@@ -1,7 +1,7 @@
 package ast.constructs;
 
 import ast.State;
-import ast.SyntaxError;
+import typer.SemanticError;
 import typer.Type;
 
 public class IntLit extends Exp {
@@ -30,9 +30,15 @@ public class IntLit extends Exp {
     }
 
     @Override
-    public Type type() {
+    public Type type(State<Type> stVar) {
         return Type.INT;
     }
+
+    @Override
+    public void checkDeclarations(State<Type> vars) throws SemanticError {
+
+    }
+
     public int getValue() {
         return value;
     }

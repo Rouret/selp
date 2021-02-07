@@ -1,7 +1,7 @@
 package ast.constructs;
 
 import ast.State;
-import ast.SyntaxError;
+import typer.SemanticError;
 import typer.Type;
 
 
@@ -23,8 +23,13 @@ public class ParExp extends Exp{
     }
 
     @Override
-    public Type type() {
-        return this.expression.type();
+    public Type type(State<Type> stVar) {
+        return this.expression.type(stVar);
+    }
+
+    @Override
+    public void checkDeclarations(State<Type> vars) throws SemanticError {
+        this.expression.checkDeclarations(vars);
     }
 
     @Override

@@ -1,12 +1,6 @@
 grammar Calc;
 // syntactic rules
 
-program  : funcDef* body EOF
-         ;
-funcDef : '(' 'defun' head body ')'
-         ;
-head     : '(' functionId variableId* ')'
-         ;
 body     : varDef* expression EOF
          ;
 varDef   : variableId '=' expression
